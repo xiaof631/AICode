@@ -1,0 +1,108 @@
+/* Schedule Type */
+"Schedule Type" = "Schedule Type";
+"Type" = "Type";
+"Fixed" = "Fixed";
+"Alternating" = "Alternating";
+"Shift" = "Shift";
+"Custom" = "Custom";
+
+/* Work Hours */
+"Work Hours" = "Work Hours";
+"Start Time" = "Start Time";
+"End Time" = "End Time";
+
+/* Lunch Break */
+"Lunch Break" = "Lunch Break";
+
+/* Dinner Break */
+"Dinner Break" = "Dinner Break"; // 新增 (用于 Section Header 和 Status)
+
+/* Fixed Schedule */
+"Fixed Schedule" = "Fixed Schedule";
+"Monday to Friday are work days. Saturday and Sunday are rest days." = "Monday to Friday are work days. Saturday and Sunday are rest days.";
+
+/* Alternating Schedule */
+"Alternating Schedule (Big/Small Week)" = "Alternating Schedule (Big/Small Week)";
+"Current Week Type" = "Current Week Type";
+"Big Week" = "Big Week";
+"Small Week" = "Small Week";
+"Starting Date" = "Starting Date";
+"Schedule Pattern:" = "Schedule Pattern:";
+"Big Week: Monday-Saturday work, Sunday rest" = "Big Week: Monday-Saturday work, Sunday rest";
+"Small Week: Monday-Friday work, Saturday-Sunday rest" = "Small Week: Monday-Friday work, Saturday-Sunday rest";
+
+/* Shift Schedule */
+"Shift Schedule" = "Shift Schedule";
+"Work Days" = "Work Days";
+"Rest Days" = "Rest Days";
+"Pattern: %@ days work, %@ days off, repeat" = "Pattern: %@ days work, %@ days off, repeat";
+
+/* Custom Schedule */
+"Custom Schedule" = "Custom Schedule";
+"Add Work Day" = "Add Work Day";
+"Selected Work Days:" = "Selected Work Days:";
+"Clear All" = "Clear All";
+"Add Rest Day" = "Add Rest Day";
+"Selected Rest Days:" = "Selected Rest Days:";
+"dates selected" = "dates selected";
+"Add as Rest Days" = "Add as Rest Days";
+"Select Rest Days" = "Select Rest Days";
+"Clear" = "Clear";
+
+/* Holidays */
+"Holidays" = "Holidays";
+"Manage Holidays" = "Manage Holidays";
+
+/* Settings */
+"Apply Settings" = "Apply Settings";
+"Schedule Settings" = "Schedule Settings";
+
+/* Holiday Management */
+"Add Holiday" = "Add Holiday";
+"Add New Holiday" = "Add New Holiday";
+"Current Holidays" = "Current Holidays";
+"No holidays added" = "No holidays added";
+"Default Holidays" = "Default Holidays";
+"Load Default Holidays for Current Year" = "Load Default Holidays for Current Year";
+"Clear All Holidays" = "Clear All Holidays";
+"Manage Holidays" = "Manage Holidays";
+"Select Date" = "Select Date";
+"Add as Holiday" = "Add as Holiday";
+"Cancel" = "Cancel";
+
+/* Status View */
+"Current Status" = "Current Status";
+"Working" = "Working";
+// "Lunch Break" = "Lunch Break"; // 已存在
+// "Dinner Break" = "Dinner Break"; // 已添加
+"Off Work" = "Off Work";
+"Weekend" = "Weekend";
+"Holiday" = "Holiday";
+"Schedule Type" = "Schedule Type";
+"Settings" = "Settings";
+"Working Time" = "Working Time";
+
+/* Settings View */
+"Type" = "Type";
+"Start Time" = "Start Time";
+"End Time" = "End Time";
+"Holidays" = "Holidays";
+"Manage Holidays" = "Manage Holidays";
+"Apply Settings" = "Apply Settings";
+"Schedule Settings" = "Schedule Settings";
+"Fixed Schedule" = "Fixed Schedule";
+"Monday to Friday are work days. Saturday and Sunday are rest days." = "Monday to Friday are work days. Saturday and Sunday are rest days.";
+"Alternating Schedule (Big/Small Week)" = "Alternating Schedule (Big/Small Week)";
+"Starting Date" = "Starting Date";
+"Schedule Pattern:" = "Schedule Pattern:";
+"Week 1: Monday-Saturday work, Sunday rest" = "Week 1: Monday-Saturday work, Sunday rest";
+"Week 2: Monday-Friday work, Saturday-Sunday rest" = "Week 2: Monday-Friday work, Saturday-Sunday rest";
+"Shift Schedule" = "Shift Schedule";
+"Work Days" = "Work Days";
+"Rest Days" = "Rest Days";
+"Pattern: %@ days work, %@ days off, repeat" = "Pattern: %@ days work, %@ days off, repeat";
+"Custom Schedule" = "Custom Schedule";
+"Add Work Day" = "Add Work Day";
+"Selected Work Days:" = "Selected Work Days:";
+"Select Date" = "Select Date";
+"Add as Work Day" = "Add as Work Day";

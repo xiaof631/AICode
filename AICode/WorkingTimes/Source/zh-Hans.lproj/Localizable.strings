@@ -1,0 +1,108 @@
+/* Schedule Type */
+"Schedule Type" = "排班类型";
+"Type" = "类型";
+"Fixed" = "固定";
+"Alternating" = "交替";
+"Shift" = "轮班";
+"Custom" = "自定义";
+
+/* Work Hours */
+"Work Hours" = "工作时间";
+"Start Time" = "开始时间";
+"End Time" = "结束时间";
+
+/* Lunch Break */
+"Lunch Break" = "午休时间";
+
+/* Dinner Break */
+"Dinner Break" = "晚餐时间"; // 新增 (用于 Section Header)
+
+/* Fixed Schedule */
+"Fixed Schedule" = "固定排班";
+"Monday to Friday are work days. Saturday and Sunday are rest days." = "周一至周五为工作日，周六和周日为休息日。";
+
+/* Alternating Schedule */
+"Alternating Schedule (Big/Small Week)" = "交替排班（大/小周）";
+"Current Week Type" = "当前周类型";
+"Big Week" = "大周";
+"Small Week" = "小周";
+"Starting Date" = "开始日期";
+"Schedule Pattern:" = "排班模式：";
+"Big Week: Monday-Saturday work, Sunday rest" = "大周：周一至周六工作，周日休息";
+"Small Week: Monday-Friday work, Saturday-Sunday rest" = "小周：周一至周五工作，周六周日休息";
+
+/* Shift Schedule */
+"Shift Schedule" = "轮班排班";
+"Work Days" = "工作天数";
+"Rest Days" = "休息天数";
+"Pattern: %@ days work, %@ days off, repeat" = "模式：连续工作%@天，休息%@天，循环往复";
+
+/* Custom Schedule */
+"Custom Schedule" = "自定义排班";
+"Add Work Day" = "添加工作日";
+"Selected Work Days:" = "已选工作日：";
+"Clear All" = "清除所有";
+"Add Rest Day" = "添加休息日";
+"Selected Rest Days:" = "已选择的休息日:";
+"dates selected" = "个日期已选择";
+"Add as Rest Days" = "添加为休息日";
+"Select Rest Days" = "选择休息日";
+"Clear" = "清除";
+
+/* Holidays */
+"Holidays" = "节假日";
+"Manage Holidays" = "管理节假日";
+
+/* Settings */
+"Apply Settings" = "应用设置";
+"Schedule Settings" = "排班设置";
+
+/* Holiday Management */
+"Add Holiday" = "添加节假日";
+"Add New Holiday" = "添加新节假日";
+"Current Holidays" = "当前节假日";
+"No holidays added" = "未添加任何节假日";
+"Default Holidays" = "默认节假日";
+"Load Default Holidays for Current Year" = "加载当年默认节假日";
+"Clear All Holidays" = "清除所有节假日";
+"Manage Holidays" = "管理节假日";
+"Select Date" = "选择日期";
+"Add as Holiday" = "添加为节假日";
+"Cancel" = "取消";
+
+/* Status View */
+"Current Status" = "当前状态";
+"Working" = "工作中";
+// "Lunch Break" = "午休中"; // 已存在
+"Dinner Break" = "晚餐中"; // 新增 (用于 Status)
+"Off Work" = "已下班";
+"Weekend" = "周末";
+"Holiday" = "节假日";
+"Schedule Type" = "排班类型";
+"Settings" = "设置";
+"Working Time" = "工作时间";
+
+/* Settings View */
+"Type" = "类型";
+"Start Time" = "开始时间";
+"End Time" = "结束时间";
+"Holidays" = "节假日";
+"Manage Holidays" = "管理节假日";
+"Apply Settings" = "应用设置";
+"Schedule Settings" = "排班设置";
+"Fixed Schedule" = "固定排班";
+"Monday to Friday are work days. Saturday and Sunday are rest days." = "周一到周五为工作日，周六和周日为休息日。";
+"Alternating Schedule (Big/Small Week)" = "大小周排班";
+"Starting Date" = "开始日期";
+"Schedule Pattern:" = "排班模式：";
+"Week 1: Monday-Saturday work, Sunday rest" = "第一周：周一到周六工作，周日休息";
+"Week 2: Monday-Friday work, Saturday-Sunday rest" = "第二周：周一到周五工作，周六周日休息";
+"Shift Schedule" = "轮班制";
+"Work Days" = "工作天数";
+"Rest Days" = "休息天数";
+"Pattern: %@ days work, %@ days off, repeat" = "模式：工作%@天，休息%@天，循环";
+"Custom Schedule" = "自定义排班";
+"Add Work Day" = "添加工作日";
+"Selected Work Days:" = "已选择的工作日：";
+"Select Date" = "选择日期";
+"Add as Work Day" = "添加为工作日";
