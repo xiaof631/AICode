@@ -27,6 +27,10 @@
 		CE3819FE2DBFAB760011575C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = CE3819FB2DBFAB760011575C /* Localizable.strings */; };
 		CE381A012DBFABFF0011575C /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = CE3819FF2DBFABFF0011575C /* README.md */; };
 		CE381A022DBFABFF0011575C /* README.zh.md in Resources */ = {isa = PBXBuildFile; fileRef = CE381A002DBFABFF0011575C /* README.zh.md */; };
+		CE381A062DBFB10D0011575C /* SmartMattingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE381A052DBFB10D0011575C /* SmartMattingView.swift */; };
+		CE381A072DBFB10D0011575C /* MaskEditingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE381A042DBFB10D0011575C /* MaskEditingView.swift */; };
+		CE381A092DC05F270011575C /* CheckerboardBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE381A082DC05F270011575C /* CheckerboardBackground.swift */; };
+		CE381A0B2DC068B30011575C /* ImageCroppingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE381A0A2DC068B30011575C /* ImageCroppingView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -51,6 +55,10 @@
 		CE3819FA2DBFAB760011575C /* Localizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		CE3819FF2DBFABFF0011575C /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		CE381A002DBFABFF0011575C /* README.zh.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.zh.md; sourceTree = "<group>"; };
+		CE381A042DBFB10D0011575C /* MaskEditingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaskEditingView.swift; sourceTree = "<group>"; };
+		CE381A052DBFB10D0011575C /* SmartMattingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmartMattingView.swift; sourceTree = "<group>"; };
+		CE381A082DC05F270011575C /* CheckerboardBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckerboardBackground.swift; sourceTree = "<group>"; };
+		CE381A0A2DC068B30011575C /* ImageCroppingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCroppingView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,6 +99,7 @@
 		CE3819CF2DBFAA5C0011575C /* AICode */ = {
 			isa = PBXGroup;
 			children = (
+				CE381A032DBFB0710011575C /* MoveBg */,
 				CE3819EB2DBFAB400011575C /* PopManger */,
 				CE3819DA2DBFAA890011575C /* WorkingTimes */,
 				CE3819CB2DBFAA5C0011575C /* Preview Content */,
@@ -171,6 +180,17 @@
 			path = "zh-Hans.lproj";
 			sourceTree = "<group>";
 		};
+		CE381A032DBFB0710011575C /* MoveBg */ = {
+			isa = PBXGroup;
+			children = (
+				CE381A0A2DC068B30011575C /* ImageCroppingView.swift */,
+				CE381A042DBFB10D0011575C /* MaskEditingView.swift */,
+				CE381A052DBFB10D0011575C /* SmartMattingView.swift */,
+				CE381A082DC05F270011575C /* CheckerboardBackground.swift */,
+			);
+			path = MoveBg;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -214,6 +234,7 @@
 			knownRegions = (
 				en,
 				Base,
+				"zh-Hans",
 			);
 			mainGroup = CE3819B02DBFAA550011575C;
 			minimizedProjectReferenceProxies = 1;
@@ -258,9 +279,13 @@
 				CE3819F22DBFAB4D0011575C /* FloatingViewControllerManager.swift in Sources */,
 				CE3819F32DBFAB4D0011575C /* PresentationRequest.swift in Sources */,
 				CE3819F42DBFAB4D0011575C /* FloatingViewTestView.swift in Sources */,
+				CE381A062DBFB10D0011575C /* SmartMattingView.swift in Sources */,
+				CE381A072DBFB10D0011575C /* MaskEditingView.swift in Sources */,
 				CE3819F52DBFAB4D0011575C /* FloatingContainerViewController.swift in Sources */,
 				CE3819E82DBFAB3B0011575C /* WorkScheduleManager.swift in Sources */,
+				CE381A0B2DC068B30011575C /* ImageCroppingView.swift in Sources */,
 				CE3819E92DBFAB3B0011575C /* WorkScheduleModels.swift in Sources */,
+				CE381A092DC05F270011575C /* CheckerboardBackground.swift in Sources */,
 				CE3819EA2DBFAB3B0011575C /* HolidayManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -414,6 +439,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"AICode/Preview Content\"";
+				DEVELOPMENT_TEAM = CJP2LU6JZC;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -442,6 +468,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"AICode/Preview Content\"";
+				DEVELOPMENT_TEAM = CJP2LU6JZC;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;

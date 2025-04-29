@@ -27,6 +27,15 @@ struct ContentView: View {
                     }
 
                 }
+                
+                Section{
+                    NavigationLink {
+                        SmartMattingView()
+                    } label: {
+                        Text("智能扣图")
+                    }
+
+                }
             }
         }
     }
