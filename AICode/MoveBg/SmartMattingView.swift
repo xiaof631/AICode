@@ -3,12 +3,9 @@ import Vision // 可能需要引入 Vision 框架进行主体识别
 import PhotosUI // 导入 PhotosUI 框架
 import CoreImage.CIFilterBuiltins // 导入 CoreImage 滤镜
 
-// --- 新增：Identifiable 包装器 ---
-struct CroppableImage: Identifiable {
-    let id = UUID() // 使其唯一可识别
-    let image: UIImage
-}
-// --- 结束新增 ---
+// --- 移除：Identifiable 包装器 ---
+// struct CroppableImage: Identifiable { ... } // (移除)
+// --- 结束移除 ---
 
 struct SmartMattingView: View {
     @State private var originalImage: UIImage? = UIImage(named: "your_image_name") // 加载你的图片
@@ -18,11 +15,9 @@ struct SmartMattingView: View {
     @State private var selectedItem: PhotosPickerItem? = nil
     @State private var isMattingComplete: Bool = false
 
-    // --- Add missing state variables ---
-    // @State private var imageToCrop: UIImage? = nil // Stores the original image loaded from PhotosPicker for cropping
-    // @State private var showCroppingView: Bool = false // Controls the presentation of the cropping view
-    @State private var croppableImageItem: CroppableImage? = nil // 新状态，用于 sheet(item:)
-    // --- End adding missing state variables ---
+    // --- 移除：用于 sheet(item:) 的状态 ---
+    // @State private var croppableImageItem: CroppableImage? = nil // (移除)
+    // --- 结束移除 ---
 
 
     var body: some View {
@@ -65,6 +60,7 @@ struct SmartMattingView: View {
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity) // 保持 Group 填充可用空间
 
+
             HStack {
                 PhotosPicker(
                     selection: $selectedItem,
@@ -76,30 +72,28 @@ struct SmartMattingView: View {
                 .buttonStyle(.borderedProminent)
                 .onChange(of: selectedItem) { newItem in
                     Task {
-                        // --- 修改：加载成功后，设置 croppableImageItem ---
-                        // 先清除旧的待裁切项
-                        await MainActor.run {
-                            self.croppableImageItem = nil
-                        }
+                        // --- 修改：加载成功后，直接设置 originalImage 并执行抠图 ---
                         if let data = try? await newItem?.loadTransferable(type: Data.self) {
                             if let uiImage = UIImage(data: data) {
                                 await MainActor.run {
                                     // 清除之前的抠图结果和状态
-                                    self.originalImage = nil
                                     self.maskImage = nil
                                     self.segmentedImage = nil
                                     self.isMattingComplete = false
-                                    // 设置新的待裁切项，这将自动触发 sheet
-                                    self.croppableImageItem = CroppableImage(image: uiImage)
+                                    // 直接设置原始图片
+                                    self.originalImage = uiImage
+                                    // 立即执行智能抠图
+                                    performSmartMatting()
                                 }
-                                return // 成功加载并设置，退出 Task
+                                return // 成功加载并处理，退出 Task
                             }
                         }
                         // 如果加载失败或取消
                         await MainActor.run {
-                             self.croppableImageItem = nil // 确保为 nil
+                             // 可以选择清除 originalImage 或保留旧图
+                             // self.originalImage = nil
+                             print("Failed to load image or selection cancelled.")
                         }
-                        print("Failed to load image or selection cancelled.")
                         // --- 结束修改 ---
                     }
                 }
@@ -149,6 +143,7 @@ struct SmartMattingView: View {
                 }
                 // --- 结束新增 ---
 
+
             }
             .padding()
         }
@@ -173,23 +168,9 @@ struct SmartMattingView: View {
                 }
             }
         }
-        // --- 修改：使用 sheet(item:) ---
-        .sheet(item: $croppableImageItem) { item in // 当 croppableImageItem 非 nil 时显示
-            // 直接使用 item.image
-            ImageCroppingView(image: item.image) { croppedImage in
-                // onCrop 回调保持不变
-                if let finalImage = croppedImage {
-                    self.originalImage = finalImage
-                    // 不需要清除 imageToCrop，因为 sheet(item:) 在 item 变为 nil 时自动关闭
-                    performSmartMatting()
-                } else {
-                    print("用户取消了裁切")
-                    // 不需要清除 imageToCrop
-                }
-                // 当 sheet 关闭时 (无论是确认还是取消)，croppableImageItem 会自动变回 nil
-            }
-        }
-        // --- 结束修改 ---
+        // --- 移除：用于显示 ImageCroppingView 的 sheet ---
+        // .sheet(item: $croppableImageItem) { ... } // (移除)
+        // --- 结束移除 ---
         .navigationTitle("智能抠图") // 如果需要的话
     }
 
