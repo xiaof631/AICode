@@ -15,6 +15,10 @@ class WorkScheduleManager: ObservableObject {
     // 用于显示的当前状态文本
     @Published var statusText: String = "Initial Status" // 初始状态
 
+    // --- 新增：下一个状态事件 ---
+    @Published var nextEvent: (date: Date, status: WorkStatus)? = nil
+    // --- 结束新增 ---
+
     // 工作时间 (所有排班类型通用)
     @Published var workStartTime: Date // 工作开始时间
     @Published var workEndTime: Date   // 工作结束时间
@@ -48,7 +52,8 @@ class WorkScheduleManager: ObservableObject {
         static let lunchBreakEndTime = "lunchBreakEndTime"
         static let dinnerStartTime = "dinnerStartTime" // 新增
         static let dinnerEndTime = "dinnerEndTime"   // 新增
-        static let alternatingStartDate = "alternatingStartDate" // 注意：这个键似乎没有在 load/save 中使用
+        // static let alternatingStartDate = "alternatingStartDate" // 注意：这个键似乎没有在 load/save 中使用 // <- 旧注释
+        static let alternatingStartDate = "alternatingStartDate" // <- 添加 Key
         static let currentWeekType = "currentWeekType"
         static let shiftStartDate = "shiftStartDate"
         static let shiftWorkDays = "shiftWorkDays"
@@ -119,7 +124,8 @@ class WorkScheduleManager: ObservableObject {
         defaults.set(dinnerEndTime.timeIntervalSince1970, forKey: Keys.dinnerEndTime)     // 新增
 
         // 保存特定排班类型的数据
-        // 注意：alternatingStartDate 未保存
+        // 注意：alternatingStartDate 未保存 // <- 旧注释
+        defaults.set(alternatingStartDate.timeIntervalSince1970, forKey: Keys.alternatingStartDate) // <- 添加保存
         defaults.set(currentWeekType.rawValue, forKey: Keys.currentWeekType)
         defaults.set(shiftStartDate.timeIntervalSince1970, forKey: Keys.shiftStartDate)
         defaults.set(shiftWorkDays, forKey: Keys.shiftWorkDays)
@@ -171,7 +177,7 @@ class WorkScheduleManager: ObservableObject {
 
 
         // 加载特定排班类型的数据
-        // 注意：alternatingStartDate 未加载
+        // 注意：alternatingStartDate 未加载 // <- 旧注释
         if let weekTypeString = defaults.string(forKey: Keys.currentWeekType),
            let weekType = WeekType(rawValue: weekTypeString) {
             currentWeekType = weekType
@@ -251,19 +257,23 @@ class WorkScheduleManager: ObservableObject {
 
     // MARK: - Status Update (状态更新)
 
-    // 更新当前的 `currentStatus` 和 `statusText`
+    // 更新当前的 `currentStatus`, `statusText`, 和 `nextEvent`
     func updateStatus() {
         // 确保有激活的排班计划
         guard let schedule = activeSchedule else {
             currentStatus = .offWork // 没有排班计划则默认为下班
             statusText = "No active schedule" // 无激活排班
+            nextEvent = nil // 没有排班，就没有下一个事件
             return
         }
-
+    
         let now = Date() // 获取当前时间
         // 调用激活排班计划的 getCurrentStatus 方法获取当前状态
         currentStatus = schedule.getCurrentStatus(date: now)
-
+        // --- 新增：计算下一个事件 ---
+        calculateNextEvent(from: now, schedule: schedule)
+        // --- 结束新增 ---
+    
         // 根据获取的状态更新用于显示的文本
         switch currentStatus {
         case .working:
@@ -283,18 +293,27 @@ class WorkScheduleManager: ObservableObject {
         }
     }
 
+    // --- 新增：计算下一个状态事件的函数 ---
+    private func calculateNextEvent(from currentDate: Date, schedule: WorkSchedule) {
+        // 调用排班计划协议中的方法来获取下一个事件
+        // 注意：这需要在 WorkSchedule 协议及其实现中添加 getNextEvent 方法
+        nextEvent = schedule.getNextEvent(after: currentDate)
+    }
+    // --- 结束新增 ---
+
     // 启动一个计时器，定期更新状态 (例如每分钟)
     private func startStatusTimer() {
         // 如果已有计时器在运行，先停止它
         stopStatusTimer()
-
+    
         // 创建一个新的计时器，每60秒触发一次
-        statusTimer = Timer.scheduledTimer(withTimeInterval: 60, repeats: true) { [weak self] _ in
+        // statusTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [weak self] _ in // <- 原代码
+        statusTimer = Timer.scheduledTimer(withTimeInterval: 60, repeats: true) { [weak self] _ in // <- 建议修改为 60 秒
             // 计时器触发时，调用 updateStatus 更新状态
             // 使用 [weak self] 防止循环引用
             self?.updateStatus()
         }
-
+    
         // 将计时器添加到当前 RunLoop 的 .common 模式，确保在滚动等 UI 操作时也能正常触发
         if let timer = statusTimer {
             RunLoop.current.add(timer, forMode: .common)
