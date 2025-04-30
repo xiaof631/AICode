@@ -23,15 +23,16 @@ struct SmartMattingView: View {
     var body: some View {
         VStack {
             Group {
-                // --- 修改：根据 isMattingComplete 状态显示不同内容 ---
+                // --- 修改：根据 isMattingComplete 和 isMattingInProgress 状态显示不同内容 ---
                 if isMattingComplete, let segmented = segmentedImage {
-                    // 状态 1: 用户点击“完成抠图”后，显示抠图结果 + 棋盘格背景
+                    // 状态 1: 抠图完成，显示结果
                     Image(uiImage: segmented)
                         .resizable()
                         .scaledToFit()
                         .background(CheckerboardBackground(tileSize: 20))
                 } else if let original = originalImage, let mask = maskImage {
-                    // 状态 2: 抠图已生成但未“完成”，显示原图 + 红色蒙版预览
+                    // 状态 2: 抠图生成蒙版但未完成，显示原图 + 红色蒙版预览
+                    // (此状态下抠图已结束，不应用等待动画)
                     Image(uiImage: original)
                         .resizable()
                         .scaledToFit()
@@ -46,9 +47,14 @@ struct SmartMattingView: View {
                         )
                 } else if let original = originalImage {
                     // 状态 3: 只有原图（未抠图或抠图失败无蒙版）
+                    // --- 修改：在此状态下应用等待动画 ---
                     Image(uiImage: original)
                         .resizable()
                         .scaledToFit()
+                        .scaleEffect(isMattingInProgress ? 1.05 : 1.0) // 抠图进行中时放大
+                        .shadow(radius: isMattingInProgress ? 10 : 0) // 抠图进行中时加阴影
+                        .animation(.easeInOut(duration: 0.3), value: isMattingInProgress) // 为状态变化添加动画
+                    // --- 结束修改 ---
                 } else {
                     // 状态 4: 无图片
                     Text("请选择或加载图片")
@@ -174,12 +180,26 @@ struct SmartMattingView: View {
         .navigationTitle("智能抠图") // 如果需要的话
     }
 
+    // --- 新增：追踪抠图进度状态 ---
+    @State private var isMattingInProgress: Bool = false
+    // --- 结束新增 ---
+
     func performSmartMatting() {
         guard let inputImage = originalImage else { return }
         guard let cgImage = inputImage.cgImage else {
             print("无法获取 CGImage")
             return
         }
+
+        // --- 新增：开始抠图，设置状态 ---
+        DispatchQueue.main.async {
+            self.isMattingInProgress = true
+            // 清除旧结果，确保动画应用在原图上
+            self.maskImage = nil
+            self.segmentedImage = nil
+            self.isMattingComplete = false
+        }
+        // --- 结束新增 ---
 
         // --- 确保在后台线程执行 Vision 请求 ---
         DispatchQueue.global(qos: .userInitiated).async {
@@ -190,13 +210,14 @@ struct SmartMattingView: View {
                     try handler.perform([request])
                     guard let result = request.results?.first else {
                         print("未找到主体实例蒙版")
-                        // 可以在主线程更新UI提示用户
+                        // --- 修改：抠图结束（失败），重置状态 ---
                         DispatchQueue.main.async {
-                             // 可以选择显示原图或错误提示
-                             self.maskImage = nil // 确保清除旧蒙版
-                             self.segmentedImage = nil // 确保清除旧结果
-                             self.isMattingComplete = false // 重置状态
+                             self.maskImage = nil
+                             self.segmentedImage = nil
+                             self.isMattingComplete = false
+                             self.isMattingInProgress = false // 结束动画状态
                         }
+                        // --- 结束修改 ---
                         return
                     }
 
@@ -211,31 +232,37 @@ struct SmartMattingView: View {
                     let generatedMask = self.createImage(from: maskPixelBuffer, size: inputImage.size)
                     let previewImage = self.applyMaskToImage(image: inputImage, mask: generatedMask)
 
-                    // --- 回到主线程更新 UI ---
+                    // --- 修改：抠图结束（成功），更新UI并重置状态 ---
                     DispatchQueue.main.async {
                         self.maskImage = generatedMask
                         self.segmentedImage = previewImage
                         // 注意：这里不设置 isMattingComplete = true，等待用户点击按钮
+                        self.isMattingInProgress = false // 结束动画状态
                     }
+                    // --- 结束修改 ---
 
                 } catch {
                     print("执行 Vision 请求或处理蒙版失败: \(error.localizedDescription)")
+                    // --- 修改：抠图结束（异常），重置状态 ---
                     DispatchQueue.main.async {
-                        // 处理错误，例如显示原图或提示
                         self.maskImage = nil
                         self.segmentedImage = nil
                         self.isMattingComplete = false
+                        self.isMattingInProgress = false // 结束动画状态
                     }
+                    // --- 结束修改 ---
                 }
             } else {
-                // Fallback for older iOS versions (if needed)
+                // Fallback for older iOS versions
                 print("VNGenerateForegroundInstanceMaskRequest 需要 iOS 15+")
-                // ... (可以保留占位符逻辑或移除) ...
+                // --- 修改：抠图结束（不支持），重置状态 ---
                 DispatchQueue.main.async {
                     self.maskImage = nil
                     self.segmentedImage = nil
                     self.isMattingComplete = false
+                    self.isMattingInProgress = false // 结束动画状态
                 }
+                // --- 结束修改 ---
             }
         }
     }
