@@ -9,6 +9,7 @@ struct MultiDatePickerView: View {
     @State private var refreshToggle = false
     @State private var isSaving = false
     @State private var showSaveConfirmation = false
+    @State private var firstWeekdayIsMonday = false // 新增：控制周一为第一天
     
     var body: some View {
         NavigationView {
@@ -38,6 +39,18 @@ struct MultiDatePickerView: View {
                             .frame(maxWidth: .infinity)
                             .font(.caption)
                             .foregroundColor(.secondary)
+                    }
+                }
+                // 新增：切换周起始日按钮
+                HStack {
+                    Spacer()
+                    Button(action: {
+                        firstWeekdayIsMonday.toggle()
+                        refreshToggle.toggle()
+                    }) {
+                        Text(firstWeekdayIsMonday ? "周一为首" : "周日为首")
+                            .font(.caption)
+                            .foregroundColor(.blue)
                     }
                 }
                 .padding(.horizontal)
@@ -135,7 +148,16 @@ struct MultiDatePickerView: View {
     private var daysOfWeek: [String] {
         let formatter = DateFormatter()
         formatter.locale = Locale.current
-        return formatter.shortWeekdaySymbols
+        var symbols = formatter.shortWeekdaySymbols
+        if firstWeekdayIsMonday {
+            // 将周日移到最后
+            if let sunday = symbols?.first{
+                symbols?.append(sunday)
+                symbols?.removeFirst()
+            }
+           
+        }
+        return symbols ?? []
     }
     
     // 日期和索引的组合结构体，确保每个单元格有唯一标识
@@ -156,7 +178,12 @@ struct MultiDatePickerView: View {
         let calendar = Calendar.current
         let monthStart = calendar.date(from: calendar.dateComponents([.year, .month], from: currentDate))!
         
-        let firstWeekday = calendar.component(.weekday, from: monthStart)
+        // 计算本月第一天是星期几
+        var firstWeekday = calendar.component(.weekday, from: monthStart)
+        if firstWeekdayIsMonday {
+            // Swift中weekday: 1=周日, 2=周一...，所以需要调整
+            firstWeekday = firstWeekday == 1 ? 7 : firstWeekday - 1
+        }
         let daysInMonth = calendar.range(of: .day, in: .month, for: monthStart)!.count
         
         var days: [Date?] = Array(repeating: nil, count: firstWeekday - 1)
@@ -240,4 +267,4 @@ struct DayButton: View {
 
 #Preview {
     MultiDatePickerView(onSave: { _ in })
-} 
+}

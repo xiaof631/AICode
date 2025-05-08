@@ -27,6 +27,9 @@ struct SettingsView: View {
     @State private var selectedDate: Date = Date()
     @State private var showingCustomDayPicker = false
     
+    // 新增：固定排班的每周工作日设置
+    @State private var fixedWorkingDays: [Bool] = [true, true, true, true, true, false, false]
+    
     var body: some View {
         Form {
             // Schedule Type Picker
@@ -106,8 +109,31 @@ struct SettingsView: View {
     // Fixed schedule (just show an explanation)
     private var fixedScheduleSettings: some View {
         Section(header: Text(NSLocalizedString("Fixed Schedule", comment: ""))) {
-            Text(NSLocalizedString("Monday to Friday are work days. Saturday and Sunday are rest days.", comment: ""))
-                .foregroundColor(.secondary)
+            // 移除原来的说明文本，替换为每周工作日设置
+            VStack(alignment: .leading, spacing: 8) {
+                Text(NSLocalizedString("Set working days for each day of the week:", comment: ""))
+                    .foregroundColor(.secondary)
+                    .padding(.bottom, 4)
+                
+                // 周一至周日的工作日设置
+                ForEach(0..<7) { index in
+                    let dayNames = [
+                        NSLocalizedString("Monday", comment: ""),
+                        NSLocalizedString("Tuesday", comment: ""),
+                        NSLocalizedString("Wednesday", comment: ""),
+                        NSLocalizedString("Thursday", comment: ""),
+                        NSLocalizedString("Friday", comment: ""),
+                        NSLocalizedString("Saturday", comment: ""),
+                        NSLocalizedString("Sunday", comment: "")
+                    ]
+                    
+                    Toggle(dayNames[index], isOn: $fixedWorkingDays[index])
+                        .onChange(of: fixedWorkingDays[index]) { _ in
+                            // 当设置改变时，更新 scheduleManager 中的设置
+                            scheduleManager.updateFixedScheduleWorkingDays(workingDays: fixedWorkingDays)
+                        }
+                }
+            }
         }
     }
     
@@ -231,6 +257,10 @@ struct SettingsView: View {
         shiftStartDate = scheduleManager.shiftStartDate
         workDays = scheduleManager.shiftWorkDays
         restDays = scheduleManager.shiftRestDays
+        
+        // 加载固定排班的每周工作日设置
+        fixedWorkingDays = scheduleManager.fixedScheduleWorkingDays
+        
     }
     
     // Apply the settings to the manager

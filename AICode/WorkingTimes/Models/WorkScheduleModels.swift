@@ -135,6 +135,7 @@ struct FixedWorkSchedule: WorkSchedule {
     var lunchBreakEndTime: Date
     var dinnerStartTime: Date // 新增
     var dinnerEndTime: Date   // 新增
+    var workingDays: [Bool] // 新增：周一至周日的工作状态 [周一,周二,周三,周四,周五,周六,周日]
     
     // 判断指定日期是否为工作日
     func isWorkDay(
@@ -155,10 +156,11 @@ struct FixedWorkSchedule: WorkSchedule {
         }
         
         // 1 = 周日, 2 = 周一, ..., 7 = 周六
-        // 如果是周一到周五，则为工作日，否则为休息日
-        return (
-            weekday >= 2 && weekday <= 6
-        ) ? .workDay : .restDay
+        // 将日历的星期几转换为数组索引 (0 = 周一, 1 = 周二, ..., 6 = 周日)
+        let dayIndex = (weekday + 5) % 7
+        
+        // 检查该天是否设置为工作日
+        return workingDays[dayIndex] ? .workDay : .restDay
     }
     
     // 获取指定日期的当前状态

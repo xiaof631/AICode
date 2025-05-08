@@ -34,7 +34,10 @@ class WorkScheduleManager: ObservableObject {
     @Published var shiftWorkDays: Int = 5 // 轮班制连续工作天数
     @Published var shiftRestDays: Int = 2 // 轮班制连续休息天数
     @Published var customRestDays: [Date] = [] // 自定义排班的特定休息日列表
-
+    
+    // 新增：固定排班的每周工作日设置 [周一,周二,周三,周四,周五,周六,周日]
+    @Published var fixedScheduleWorkingDays: [Bool] = [true, true, true, true, true, false, false]
+    
     // MARK: - Private Properties (私有属性)
 
     // 当前激活的排班计划实例
@@ -59,6 +62,7 @@ class WorkScheduleManager: ObservableObject {
         static let shiftWorkDays = "shiftWorkDays"
         static let shiftRestDays = "shiftRestDays"
         static let customRestDays = "customRestDays"
+        static let fixedScheduleWorkingDays = "fixedScheduleWorkingDays" // 新增
     }
 
     // 私有初始化方法，确保单例模式
@@ -134,6 +138,9 @@ class WorkScheduleManager: ObservableObject {
         // 保存自定义休息日 (存储为 TimeInterval 数组)
         let customRestDaysTimeIntervals = customRestDays.map { $0.timeIntervalSince1970 }
         defaults.set(customRestDaysTimeIntervals, forKey: Keys.customRestDays)
+        
+        // 保存固定排班的每周工作日设置
+        defaults.set(fixedScheduleWorkingDays, forKey: Keys.fixedScheduleWorkingDays)
 
         // 强制同步以确保数据写入磁盘
         defaults.synchronize()
@@ -153,7 +160,6 @@ class WorkScheduleManager: ObservableObject {
         if let startTimeInterval = defaults.object(forKey: Keys.workStartTime) as? TimeInterval {
             workStartTime = Date(timeIntervalSince1970: startTimeInterval)
         }
-        // ... 其他时间加载逻辑 ...
         if let endTimeInterval = defaults.object(forKey: Keys.workEndTime) as? TimeInterval {
             workEndTime = Date(timeIntervalSince1970: endTimeInterval)
         }
@@ -200,6 +206,11 @@ class WorkScheduleManager: ObservableObject {
             // 对加载的休息日进行排序，确保顺序一致性
             customRestDays.sort()
         }
+        
+        // 加载固定排班的工作日设置
+        if let workingDays = defaults.array(forKey: Keys.fixedScheduleWorkingDays) as? [Bool], workingDays.count == 7 {
+            fixedScheduleWorkingDays = workingDays
+        }
     }
 
     // MARK: - Schedule Management (排班管理)
@@ -215,7 +226,8 @@ class WorkScheduleManager: ObservableObject {
                 lunchBreakStartTime: lunchBreakStartTime,
                 lunchBreakEndTime: lunchBreakEndTime,
                 dinnerStartTime: dinnerStartTime, // 传递晚餐时间
-                dinnerEndTime: dinnerEndTime      // 传递晚餐时间
+                dinnerEndTime: dinnerEndTime,     // 传递晚餐时间
+                workingDays: fixedScheduleWorkingDays // 传递每周工作日设置
             )
         case .alternating:
             activeSchedule = AlternatingWorkSchedule(
@@ -459,4 +471,17 @@ class WorkScheduleManager: ObservableObject {
         // 保存更改后的设置
         saveSettings()
     }
+    
+    // 更新固定排班的工作日设置
+    func updateFixedScheduleWorkingDays(workingDays: [Bool]) {
+        guard workingDays.count == 7 else { return }
+        fixedScheduleWorkingDays = workingDays
+        
+        if currentScheduleType == .fixed {
+            updateActiveSchedule()
+        }
+        saveSettings()
+    }
 }
+
+
