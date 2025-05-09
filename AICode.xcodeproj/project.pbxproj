@@ -8,6 +8,15 @@
 
 /* Begin PBXBuildFile section */
 		CE1B13DD2DCD9106009A2FF7 /* FileStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1B13DC2DCD9106009A2FF7 /* FileStorage.swift */; };
+		CE1B13EB2DCDAB23009A2FF7 /* WorkScheduleSettingsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1B13E92DCDAB23009A2FF7 /* WorkScheduleSettingsManager.swift */; };
+		CE1B13EC2DCDAB23009A2FF7 /* WorkScheduleStatusManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1B13EA2DCDAB23009A2FF7 /* WorkScheduleStatusManager.swift */; };
+		CE1B13ED2DCDAB23009A2FF7 /* WorkScheduleCustomManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1B13E82DCDAB23009A2FF7 /* WorkScheduleCustomManager.swift */; };
+		CE1B13F42DCDAE17009A2FF7 /* WorkScheduleProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1B13F32DCDAE17009A2FF7 /* WorkScheduleProtocol.swift */; };
+		CE1B13F52DCDAE17009A2FF7 /* CustomWorkSchedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1B13EF2DCDAE17009A2FF7 /* CustomWorkSchedule.swift */; };
+		CE1B13F62DCDAE17009A2FF7 /* AlternatingWorkSchedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1B13EE2DCDAE17009A2FF7 /* AlternatingWorkSchedule.swift */; };
+		CE1B13F72DCDAE17009A2FF7 /* FixedWorkSchedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1B13F02DCDAE17009A2FF7 /* FixedWorkSchedule.swift */; };
+		CE1B13F82DCDAE17009A2FF7 /* ShiftWorkSchedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1B13F12DCDAE17009A2FF7 /* ShiftWorkSchedule.swift */; };
+		CE1B13F92DCDAE17009A2FF7 /* WorkScheduleEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1B13F22DCDAE17009A2FF7 /* WorkScheduleEnums.swift */; };
 		CE3819D02DBFAA5C0011575C /* AICodeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3819CC2DBFAA5C0011575C /* AICodeApp.swift */; };
 		CE3819D12DBFAA5C0011575C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3819CE2DBFAA5C0011575C /* ContentView.swift */; };
 		CE3819D22DBFAA5C0011575C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE3819CA2DBFAA5C0011575C /* Preview Assets.xcassets */; };
@@ -17,7 +26,6 @@
 		CE3819E22DBFAB270011575C /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3819DD2DBFAB270011575C /* SettingsView.swift */; };
 		CE3819E32DBFAB270011575C /* MultiDatePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3819DF2DBFAB270011575C /* MultiDatePickerView.swift */; };
 		CE3819E82DBFAB3B0011575C /* WorkScheduleManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3819E62DBFAB3B0011575C /* WorkScheduleManager.swift */; };
-		CE3819E92DBFAB3B0011575C /* WorkScheduleModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3819E72DBFAB3B0011575C /* WorkScheduleModels.swift */; };
 		CE3819EA2DBFAB3B0011575C /* HolidayManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3819E52DBFAB3B0011575C /* HolidayManager.swift */; };
 		CE3819F12DBFAB4D0011575C /* TestFloatingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3819F02DBFAB4D0011575C /* TestFloatingViewController.swift */; };
 		CE3819F22DBFAB4D0011575C /* FloatingViewControllerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3819ED2DBFAB4D0011575C /* FloatingViewControllerManager.swift */; };
@@ -36,6 +44,15 @@
 
 /* Begin PBXFileReference section */
 		CE1B13DC2DCD9106009A2FF7 /* FileStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileStorage.swift; sourceTree = "<group>"; };
+		CE1B13E82DCDAB23009A2FF7 /* WorkScheduleCustomManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkScheduleCustomManager.swift; sourceTree = "<group>"; };
+		CE1B13E92DCDAB23009A2FF7 /* WorkScheduleSettingsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkScheduleSettingsManager.swift; sourceTree = "<group>"; };
+		CE1B13EA2DCDAB23009A2FF7 /* WorkScheduleStatusManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkScheduleStatusManager.swift; sourceTree = "<group>"; };
+		CE1B13EE2DCDAE17009A2FF7 /* AlternatingWorkSchedule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlternatingWorkSchedule.swift; sourceTree = "<group>"; };
+		CE1B13EF2DCDAE17009A2FF7 /* CustomWorkSchedule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomWorkSchedule.swift; sourceTree = "<group>"; };
+		CE1B13F02DCDAE17009A2FF7 /* FixedWorkSchedule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FixedWorkSchedule.swift; sourceTree = "<group>"; };
+		CE1B13F12DCDAE17009A2FF7 /* ShiftWorkSchedule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShiftWorkSchedule.swift; sourceTree = "<group>"; };
+		CE1B13F22DCDAE17009A2FF7 /* WorkScheduleEnums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkScheduleEnums.swift; sourceTree = "<group>"; };
+		CE1B13F32DCDAE17009A2FF7 /* WorkScheduleProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkScheduleProtocol.swift; sourceTree = "<group>"; };
 		CE3819B92DBFAA550011575C /* AICode.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AICode.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE3819CA2DBFAA5C0011575C /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		CE3819CC2DBFAA5C0011575C /* AICodeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AICodeApp.swift; sourceTree = "<group>"; };
@@ -47,7 +64,6 @@
 		CE3819DF2DBFAB270011575C /* MultiDatePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiDatePickerView.swift; sourceTree = "<group>"; };
 		CE3819E52DBFAB3B0011575C /* HolidayManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HolidayManager.swift; sourceTree = "<group>"; };
 		CE3819E62DBFAB3B0011575C /* WorkScheduleManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkScheduleManager.swift; sourceTree = "<group>"; };
-		CE3819E72DBFAB3B0011575C /* WorkScheduleModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkScheduleModels.swift; sourceTree = "<group>"; };
 		CE3819EC2DBFAB4D0011575C /* FloatingContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingContainerViewController.swift; sourceTree = "<group>"; };
 		CE3819ED2DBFAB4D0011575C /* FloatingViewControllerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingViewControllerManager.swift; sourceTree = "<group>"; };
 		CE3819EE2DBFAB4D0011575C /* FloatingViewTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingViewTestView.swift; sourceTree = "<group>"; };
@@ -141,7 +157,15 @@
 				CE1B13DC2DCD9106009A2FF7 /* FileStorage.swift */,
 				CE3819E52DBFAB3B0011575C /* HolidayManager.swift */,
 				CE3819E62DBFAB3B0011575C /* WorkScheduleManager.swift */,
-				CE3819E72DBFAB3B0011575C /* WorkScheduleModels.swift */,
+				CE1B13E82DCDAB23009A2FF7 /* WorkScheduleCustomManager.swift */,
+				CE1B13E92DCDAB23009A2FF7 /* WorkScheduleSettingsManager.swift */,
+				CE1B13EA2DCDAB23009A2FF7 /* WorkScheduleStatusManager.swift */,
+				CE1B13EE2DCDAE17009A2FF7 /* AlternatingWorkSchedule.swift */,
+				CE1B13EF2DCDAE17009A2FF7 /* CustomWorkSchedule.swift */,
+				CE1B13F02DCDAE17009A2FF7 /* FixedWorkSchedule.swift */,
+				CE1B13F12DCDAE17009A2FF7 /* ShiftWorkSchedule.swift */,
+				CE1B13F22DCDAE17009A2FF7 /* WorkScheduleEnums.swift */,
+				CE1B13F32DCDAE17009A2FF7 /* WorkScheduleProtocol.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -277,6 +301,9 @@
 				CE3819E12DBFAB270011575C /* StatusView.swift in Sources */,
 				CE3819E22DBFAB270011575C /* SettingsView.swift in Sources */,
 				CE3819E32DBFAB270011575C /* MultiDatePickerView.swift in Sources */,
+				CE1B13EB2DCDAB23009A2FF7 /* WorkScheduleSettingsManager.swift in Sources */,
+				CE1B13EC2DCDAB23009A2FF7 /* WorkScheduleStatusManager.swift in Sources */,
+				CE1B13ED2DCDAB23009A2FF7 /* WorkScheduleCustomManager.swift in Sources */,
 				CE3819D12DBFAA5C0011575C /* ContentView.swift in Sources */,
 				CE3819F12DBFAB4D0011575C /* TestFloatingViewController.swift in Sources */,
 				CE3819F22DBFAB4D0011575C /* FloatingViewControllerManager.swift in Sources */,
@@ -288,8 +315,13 @@
 				CE3819F52DBFAB4D0011575C /* FloatingContainerViewController.swift in Sources */,
 				CE3819E82DBFAB3B0011575C /* WorkScheduleManager.swift in Sources */,
 				CE381A0B2DC068B30011575C /* ImageCroppingView.swift in Sources */,
-				CE3819E92DBFAB3B0011575C /* WorkScheduleModels.swift in Sources */,
 				CE381A092DC05F270011575C /* CheckerboardBackground.swift in Sources */,
+				CE1B13F42DCDAE17009A2FF7 /* WorkScheduleProtocol.swift in Sources */,
+				CE1B13F52DCDAE17009A2FF7 /* CustomWorkSchedule.swift in Sources */,
+				CE1B13F62DCDAE17009A2FF7 /* AlternatingWorkSchedule.swift in Sources */,
+				CE1B13F72DCDAE17009A2FF7 /* FixedWorkSchedule.swift in Sources */,
+				CE1B13F82DCDAE17009A2FF7 /* ShiftWorkSchedule.swift in Sources */,
+				CE1B13F92DCDAE17009A2FF7 /* WorkScheduleEnums.swift in Sources */,
 				CE3819EA2DBFAB3B0011575C /* HolidayManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -59,7 +59,7 @@ class HolidayManager {
         // 示例：加载 2024 年中国的法定节假日
         // 注意：这只是一个示例，实际应用中应使用更可靠的数据源
         // 并且需要考虑调休工作日的情况（本示例未处理调休）
-        if year == 2024 {
+        if year == 2025 {
             // 元旦
             addHolidayFromComponents(year: 2024, month: 1, day: 1)
 
