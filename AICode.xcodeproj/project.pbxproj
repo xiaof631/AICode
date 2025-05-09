@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CE1B13DD2DCD9106009A2FF7 /* FileStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1B13DC2DCD9106009A2FF7 /* FileStorage.swift */; };
 		CE3819D02DBFAA5C0011575C /* AICodeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3819CC2DBFAA5C0011575C /* AICodeApp.swift */; };
 		CE3819D12DBFAA5C0011575C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3819CE2DBFAA5C0011575C /* ContentView.swift */; };
 		CE3819D22DBFAA5C0011575C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE3819CA2DBFAA5C0011575C /* Preview Assets.xcassets */; };
@@ -34,6 +35,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		CE1B13DC2DCD9106009A2FF7 /* FileStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileStorage.swift; sourceTree = "<group>"; };
 		CE3819B92DBFAA550011575C /* AICode.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AICode.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE3819CA2DBFAA5C0011575C /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		CE3819CC2DBFAA5C0011575C /* AICodeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AICodeApp.swift; sourceTree = "<group>"; };
@@ -136,6 +138,7 @@
 		CE3819E42DBFAB2F0011575C /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				CE1B13DC2DCD9106009A2FF7 /* FileStorage.swift */,
 				CE3819E52DBFAB3B0011575C /* HolidayManager.swift */,
 				CE3819E62DBFAB3B0011575C /* WorkScheduleManager.swift */,
 				CE3819E72DBFAB3B0011575C /* WorkScheduleModels.swift */,
@@ -280,6 +283,7 @@
 				CE3819F32DBFAB4D0011575C /* PresentationRequest.swift in Sources */,
 				CE3819F42DBFAB4D0011575C /* FloatingViewTestView.swift in Sources */,
 				CE381A062DBFB10D0011575C /* SmartMattingView.swift in Sources */,
+				CE1B13DD2DCD9106009A2FF7 /* FileStorage.swift in Sources */,
 				CE381A072DBFB10D0011575C /* MaskEditingView.swift in Sources */,
 				CE3819F52DBFAB4D0011575C /* FloatingContainerViewController.swift in Sources */,
 				CE3819E82DBFAB3B0011575C /* WorkScheduleManager.swift in Sources */,

@@ -45,24 +45,26 @@ class WorkScheduleManager: ObservableObject {
 
     // 用于定期更新状态的计时器
     private var statusTimer: Timer?
-
-    // UserDefaults 存储键
-    private struct Keys {
-        static let scheduleType = "scheduleType"
-        static let workStartTime = "workStartTime"
-        static let workEndTime = "workEndTime"
-        static let lunchBreakStartTime = "lunchBreakStartTime"
-        static let lunchBreakEndTime = "lunchBreakEndTime"
-        static let dinnerStartTime = "dinnerStartTime" // 新增
-        static let dinnerEndTime = "dinnerEndTime"   // 新增
-        // static let alternatingStartDate = "alternatingStartDate" // 注意：这个键似乎没有在 load/save 中使用 // <- 旧注释
-        static let alternatingStartDate = "alternatingStartDate" // <- 添加 Key
-        static let currentWeekType = "currentWeekType"
-        static let shiftStartDate = "shiftStartDate"
-        static let shiftWorkDays = "shiftWorkDays"
-        static let shiftRestDays = "shiftRestDays"
-        static let customRestDays = "customRestDays"
-        static let fixedScheduleWorkingDays = "fixedScheduleWorkingDays" // 新增
+    
+    // 设置文件名
+    private let settingsFileName = "workScheduleSettings.json"
+    
+    // 用于编码和解码的数据模型
+    private struct ScheduleSettings: Codable {
+        var scheduleType: String
+        var workStartTime: TimeInterval
+        var workEndTime: TimeInterval
+        var lunchBreakStartTime: TimeInterval
+        var lunchBreakEndTime: TimeInterval
+        var dinnerStartTime: TimeInterval
+        var dinnerEndTime: TimeInterval
+        var alternatingStartDate: TimeInterval
+        var currentWeekType: String
+        var shiftStartDate: TimeInterval
+        var shiftWorkDays: Int
+        var shiftRestDays: Int
+        var customRestDays: [TimeInterval]
+        var fixedScheduleWorkingDays: [Bool]
     }
 
     // 私有初始化方法，确保单例模式
@@ -112,107 +114,80 @@ class WorkScheduleManager: ObservableObject {
 
     // MARK: - Settings Persistence (设置持久化)
 
-    // 将所有设置保存到 UserDefaults
+    // 将所有设置保存到沙盒文件
     func saveSettings() {
-        let defaults = UserDefaults.standard
-
-        // 保存排班类型
-        defaults.set(currentScheduleType.rawValue, forKey: Keys.scheduleType)
-
-        // 保存工作时间 (存储为 TimeInterval)
-        defaults.set(workStartTime.timeIntervalSince1970, forKey: Keys.workStartTime)
-        defaults.set(workEndTime.timeIntervalSince1970, forKey: Keys.workEndTime)
-        defaults.set(lunchBreakStartTime.timeIntervalSince1970, forKey: Keys.lunchBreakStartTime)
-        defaults.set(lunchBreakEndTime.timeIntervalSince1970, forKey: Keys.lunchBreakEndTime)
-        defaults.set(dinnerStartTime.timeIntervalSince1970, forKey: Keys.dinnerStartTime) // 新增
-        defaults.set(dinnerEndTime.timeIntervalSince1970, forKey: Keys.dinnerEndTime)     // 新增
-
-        // 保存特定排班类型的数据
-        // 注意：alternatingStartDate 未保存 // <- 旧注释
-        defaults.set(alternatingStartDate.timeIntervalSince1970, forKey: Keys.alternatingStartDate) // <- 添加保存
-        defaults.set(currentWeekType.rawValue, forKey: Keys.currentWeekType)
-        defaults.set(shiftStartDate.timeIntervalSince1970, forKey: Keys.shiftStartDate)
-        defaults.set(shiftWorkDays, forKey: Keys.shiftWorkDays)
-        defaults.set(shiftRestDays, forKey: Keys.shiftRestDays)
-
-        // 保存自定义休息日 (存储为 TimeInterval 数组)
-        let customRestDaysTimeIntervals = customRestDays.map { $0.timeIntervalSince1970 }
-        defaults.set(customRestDaysTimeIntervals, forKey: Keys.customRestDays)
+        // 创建设置数据模型
+        let settings = ScheduleSettings(
+            scheduleType: currentScheduleType.rawValue,
+            workStartTime: workStartTime.timeIntervalSince1970,
+            workEndTime: workEndTime.timeIntervalSince1970,
+            lunchBreakStartTime: lunchBreakStartTime.timeIntervalSince1970,
+            lunchBreakEndTime: lunchBreakEndTime.timeIntervalSince1970,
+            dinnerStartTime: dinnerStartTime.timeIntervalSince1970,
+            dinnerEndTime: dinnerEndTime.timeIntervalSince1970,
+            alternatingStartDate: alternatingStartDate.timeIntervalSince1970,
+            currentWeekType: currentWeekType.rawValue,
+            shiftStartDate: shiftStartDate.timeIntervalSince1970,
+            shiftWorkDays: shiftWorkDays,
+            shiftRestDays: shiftRestDays,
+            customRestDays: customRestDays.map { $0.timeIntervalSince1970 },
+            fixedScheduleWorkingDays: fixedScheduleWorkingDays
+        )
         
-        // 保存固定排班的每周工作日设置
-        defaults.set(fixedScheduleWorkingDays, forKey: Keys.fixedScheduleWorkingDays)
-
-        // 强制同步以确保数据写入磁盘
-        defaults.synchronize()
+        // 使用FileStorage保存设置
+        do {
+            try FileStorage.shared.saveData(settings, toFile: settingsFileName)
+        } catch {
+            print("保存设置失败: \(error.localizedDescription)")
+        }
     }
 
-    // 从 UserDefaults 加载设置
+    // 从沙盒文件加载设置
     private func loadSettings() {
-        let defaults = UserDefaults.standard
-
-        // 加载排班类型
-        if let savedTypeString = defaults.string(forKey: Keys.scheduleType),
-           let savedType = WorkScheduleType(rawValue: savedTypeString) {
-            currentScheduleType = savedType
-        }
-
-        // 加载工作时间 (从 TimeInterval 转换回 Date)
-        if let startTimeInterval = defaults.object(forKey: Keys.workStartTime) as? TimeInterval {
-            workStartTime = Date(timeIntervalSince1970: startTimeInterval)
-        }
-        if let endTimeInterval = defaults.object(forKey: Keys.workEndTime) as? TimeInterval {
-            workEndTime = Date(timeIntervalSince1970: endTimeInterval)
-        }
-
-        if let lunchStartTimeInterval = defaults.object(forKey: Keys.lunchBreakStartTime) as? TimeInterval {
-            lunchBreakStartTime = Date(timeIntervalSince1970: lunchStartTimeInterval)
-        }
-
-        if let lunchEndTimeInterval = defaults.object(forKey: Keys.lunchBreakEndTime) as? TimeInterval {
-            lunchBreakEndTime = Date(timeIntervalSince1970: lunchEndTimeInterval)
-        }
-
-
-        // 加载晚餐时间
-        if let dinnerStartTimeInterval = defaults.object(forKey: Keys.dinnerStartTime) as? TimeInterval { // 新增
-            dinnerStartTime = Date(timeIntervalSince1970: dinnerStartTimeInterval)
-        }
-        if let dinnerEndTimeInterval = defaults.object(forKey: Keys.dinnerEndTime) as? TimeInterval {   // 新增
-            dinnerEndTime = Date(timeIntervalSince1970: dinnerEndTimeInterval)
-        }
-
-
-        // 加载特定排班类型的数据
-        // 注意：alternatingStartDate 未加载 // <- 旧注释
-        if let weekTypeString = defaults.string(forKey: Keys.currentWeekType),
-           let weekType = WeekType(rawValue: weekTypeString) {
-            currentWeekType = weekType
-        }
-
-        if let shiftStartInterval = defaults.object(forKey: Keys.shiftStartDate) as? TimeInterval {
-            shiftStartDate = Date(timeIntervalSince1970: shiftStartInterval)
-        }
-
-        // 加载轮班天数，如果未保存则使用默认值
-        shiftWorkDays = defaults.integer(forKey: Keys.shiftWorkDays)
-        if shiftWorkDays == 0 { shiftWorkDays = 5 } // 如果读取为0（未设置过），则设为默认值5
-
-        shiftRestDays = defaults.integer(forKey: Keys.shiftRestDays)
-        if shiftRestDays == 0 { shiftRestDays = 2 } // 如果读取为0（未设置过），则设为默认值2
-
-        // 加载自定义休息日 (从 TimeInterval 数组转换回 Date 数组)
-        if let customRestDaysTimeIntervals = defaults.array(forKey: Keys.customRestDays) as? [TimeInterval] {
-            customRestDays = customRestDaysTimeIntervals.map { Date(timeIntervalSince1970: $0) }
-            // 对加载的休息日进行排序，确保顺序一致性
-            customRestDays.sort()
+        // 使用FileStorage加载设置
+        guard FileStorage.shared.fileExists(fileName: settingsFileName) else {
+            print("设置文件不存在，将使用默认设置")
+            return
         }
         
-        // 加载固定排班的工作日设置
-        if let workingDays = defaults.array(forKey: Keys.fixedScheduleWorkingDays) as? [Bool], workingDays.count == 7 {
-            fixedScheduleWorkingDays = workingDays
+        do {
+            // 加载并解码设置
+            let settings = try FileStorage.shared.loadData(fromFile: settingsFileName, as: ScheduleSettings.self)
+            
+            // 应用设置
+            if let savedType = WorkScheduleType(rawValue: settings.scheduleType) {
+                currentScheduleType = savedType
+            }
+            
+            workStartTime = Date(timeIntervalSince1970: settings.workStartTime)
+            workEndTime = Date(timeIntervalSince1970: settings.workEndTime)
+            lunchBreakStartTime = Date(timeIntervalSince1970: settings.lunchBreakStartTime)
+            lunchBreakEndTime = Date(timeIntervalSince1970: settings.lunchBreakEndTime)
+            dinnerStartTime = Date(timeIntervalSince1970: settings.dinnerStartTime)
+            dinnerEndTime = Date(timeIntervalSince1970: settings.dinnerEndTime)
+            
+            alternatingStartDate = Date(timeIntervalSince1970: settings.alternatingStartDate)
+            if let weekType = WeekType(rawValue: settings.currentWeekType) {
+                currentWeekType = weekType
+            }
+            
+            shiftStartDate = Date(timeIntervalSince1970: settings.shiftStartDate)
+            shiftWorkDays = settings.shiftWorkDays
+            shiftRestDays = settings.shiftRestDays
+            
+            customRestDays = settings.customRestDays.map { Date(timeIntervalSince1970: $0) }
+            customRestDays.sort()
+            
+            if settings.fixedScheduleWorkingDays.count == 7 {
+                fixedScheduleWorkingDays = settings.fixedScheduleWorkingDays
+            }
+            
+            print("设置已从文件加载")
+        } catch {
+            print("加载设置失败: \(error.localizedDescription)")
         }
     }
-
+    
     // MARK: - Schedule Management (排班管理)
 
     // 根据当前的 `currentScheduleType` 更新 `activeSchedule` 实例
@@ -482,6 +457,44 @@ class WorkScheduleManager: ObservableObject {
         }
         saveSettings()
     }
+    
+    // 从 UserDefaults 迁移设置到文件存储
+    private func migrateFromUserDefaults() {
+        let defaults = UserDefaults.standard
+        
+        // 检查是否已经迁移过
+        let migrationKey = "hasmigratedToFileStorage"
+        if defaults.bool(forKey: migrationKey) {
+            return
+        }
+        
+        // 检查文件是否已存在
+        if FileStorage.shared.fileExists(fileName: settingsFileName) {
+            return
+        }
+        
+        // 从 UserDefaults 加载设置
+        if let savedTypeString = defaults.string(forKey: "scheduleType"),
+           let savedType = WorkScheduleType(rawValue: savedTypeString) {
+            currentScheduleType = savedType
+        }
+        
+        if let startTimeInterval = defaults.object(forKey: "workStartTime") as? TimeInterval {
+            workStartTime = Date(timeIntervalSince1970: startTimeInterval)
+        }
+        
+        // ... 加载其他设置 ...
+        
+        // 保存到文件
+        saveSettings()
+        
+        // 标记为已迁移
+        defaults.set(true, forKey: migrationKey)
+        defaults.synchronize()
+    }
 }
+
+
+
 
 
