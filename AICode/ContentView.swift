@@ -36,6 +36,15 @@ struct ContentView: View {
                     }
 
                 }
+                
+                Section{
+                    NavigationLink {
+                        TodoMainView()
+                    } label: {
+                        Text("认知觉醒")
+                    }
+
+                }
             }
         }
     }

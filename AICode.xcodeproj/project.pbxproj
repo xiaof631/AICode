@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CE0596312DD36E3E00E7E444 /* TodoStatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0596302DD36E3E00E7E444 /* TodoStatsView.swift */; };
 		CE1B13DD2DCD9106009A2FF7 /* FileStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1B13DC2DCD9106009A2FF7 /* FileStorage.swift */; };
 		CE1B13EB2DCDAB23009A2FF7 /* WorkScheduleSettingsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1B13E92DCDAB23009A2FF7 /* WorkScheduleSettingsManager.swift */; };
 		CE1B13EC2DCDAB23009A2FF7 /* WorkScheduleStatusManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1B13EA2DCDAB23009A2FF7 /* WorkScheduleStatusManager.swift */; };
@@ -17,6 +18,11 @@
 		CE1B13F72DCDAE17009A2FF7 /* FixedWorkSchedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1B13F02DCDAE17009A2FF7 /* FixedWorkSchedule.swift */; };
 		CE1B13F82DCDAE17009A2FF7 /* ShiftWorkSchedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1B13F12DCDAE17009A2FF7 /* ShiftWorkSchedule.swift */; };
 		CE1B13F92DCDAE17009A2FF7 /* WorkScheduleEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1B13F22DCDAE17009A2FF7 /* WorkScheduleEnums.swift */; };
+		CE1B14272DCF4C7E009A2FF7 /* TodoLogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1B14232DCF4C7E009A2FF7 /* TodoLogView.swift */; };
+		CE1B14282DCF4C7E009A2FF7 /* TodoMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1B14242DCF4C7E009A2FF7 /* TodoMainView.swift */; };
+		CE1B14292DCF4C7E009A2FF7 /* TodoModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1B14252DCF4C7E009A2FF7 /* TodoModels.swift */; };
+		CE1B142A2DCF4C7E009A2FF7 /* TodoEditorViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1B14222DCF4C7E009A2FF7 /* TodoEditorViews.swift */; };
+		CE1B142B2DCF4C7E009A2FF7 /* TODO_README.md in Resources */ = {isa = PBXBuildFile; fileRef = CE1B14212DCF4C7E009A2FF7 /* TODO_README.md */; };
 		CE3819D02DBFAA5C0011575C /* AICodeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3819CC2DBFAA5C0011575C /* AICodeApp.swift */; };
 		CE3819D12DBFAA5C0011575C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3819CE2DBFAA5C0011575C /* ContentView.swift */; };
 		CE3819D22DBFAA5C0011575C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE3819CA2DBFAA5C0011575C /* Preview Assets.xcassets */; };
@@ -40,9 +46,13 @@
 		CE381A072DBFB10D0011575C /* MaskEditingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE381A042DBFB10D0011575C /* MaskEditingView.swift */; };
 		CE381A092DC05F270011575C /* CheckerboardBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE381A082DC05F270011575C /* CheckerboardBackground.swift */; };
 		CE381A0B2DC068B30011575C /* ImageCroppingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE381A0A2DC068B30011575C /* ImageCroppingView.swift */; };
+		CED354EE2DD4C2700075E6F2 /* ReflectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED354ED2DD4C2700075E6F2 /* ReflectionView.swift */; };
+		CED354F02DD4C4FD0075E6F2 /* ReflectionHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED354EF2DD4C4FD0075E6F2 /* ReflectionHistoryView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		CE0596302DD36E3E00E7E444 /* TodoStatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoStatsView.swift; sourceTree = "<group>"; };
+		CE0596322DD36FF000E7E444 /* AICode.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AICode.entitlements; sourceTree = "<group>"; };
 		CE1B13DC2DCD9106009A2FF7 /* FileStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileStorage.swift; sourceTree = "<group>"; };
 		CE1B13E82DCDAB23009A2FF7 /* WorkScheduleCustomManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkScheduleCustomManager.swift; sourceTree = "<group>"; };
 		CE1B13E92DCDAB23009A2FF7 /* WorkScheduleSettingsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkScheduleSettingsManager.swift; sourceTree = "<group>"; };
@@ -53,6 +63,11 @@
 		CE1B13F12DCDAE17009A2FF7 /* ShiftWorkSchedule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShiftWorkSchedule.swift; sourceTree = "<group>"; };
 		CE1B13F22DCDAE17009A2FF7 /* WorkScheduleEnums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkScheduleEnums.swift; sourceTree = "<group>"; };
 		CE1B13F32DCDAE17009A2FF7 /* WorkScheduleProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkScheduleProtocol.swift; sourceTree = "<group>"; };
+		CE1B14212DCF4C7E009A2FF7 /* TODO_README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = TODO_README.md; sourceTree = "<group>"; };
+		CE1B14222DCF4C7E009A2FF7 /* TodoEditorViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoEditorViews.swift; sourceTree = "<group>"; };
+		CE1B14232DCF4C7E009A2FF7 /* TodoLogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoLogView.swift; sourceTree = "<group>"; };
+		CE1B14242DCF4C7E009A2FF7 /* TodoMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoMainView.swift; sourceTree = "<group>"; };
+		CE1B14252DCF4C7E009A2FF7 /* TodoModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoModels.swift; sourceTree = "<group>"; };
 		CE3819B92DBFAA550011575C /* AICode.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AICode.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE3819CA2DBFAA5C0011575C /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		CE3819CC2DBFAA5C0011575C /* AICodeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AICodeApp.swift; sourceTree = "<group>"; };
@@ -77,6 +92,8 @@
 		CE381A052DBFB10D0011575C /* SmartMattingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmartMattingView.swift; sourceTree = "<group>"; };
 		CE381A082DC05F270011575C /* CheckerboardBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckerboardBackground.swift; sourceTree = "<group>"; };
 		CE381A0A2DC068B30011575C /* ImageCroppingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCroppingView.swift; sourceTree = "<group>"; };
+		CED354ED2DD4C2700075E6F2 /* ReflectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReflectionView.swift; sourceTree = "<group>"; };
+		CED354EF2DD4C4FD0075E6F2 /* ReflectionHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReflectionHistoryView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,6 +107,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		CE1B14262DCF4C7E009A2FF7 /* Todo */ = {
+			isa = PBXGroup;
+			children = (
+				CE1B14212DCF4C7E009A2FF7 /* TODO_README.md */,
+				CE1B14222DCF4C7E009A2FF7 /* TodoEditorViews.swift */,
+				CE1B14232DCF4C7E009A2FF7 /* TodoLogView.swift */,
+				CE1B14242DCF4C7E009A2FF7 /* TodoMainView.swift */,
+				CE1B14252DCF4C7E009A2FF7 /* TodoModels.swift */,
+				CE0596302DD36E3E00E7E444 /* TodoStatsView.swift */,
+				CED354ED2DD4C2700075E6F2 /* ReflectionView.swift */,
+				CED354EF2DD4C4FD0075E6F2 /* ReflectionHistoryView.swift */,
+			);
+			path = Todo;
+			sourceTree = "<group>";
+		};
 		CE3819B02DBFAA550011575C = {
 			isa = PBXGroup;
 			children = (
@@ -117,6 +149,8 @@
 		CE3819CF2DBFAA5C0011575C /* AICode */ = {
 			isa = PBXGroup;
 			children = (
+				CE0596322DD36FF000E7E444 /* AICode.entitlements */,
+				CE1B14262DCF4C7E009A2FF7 /* Todo */,
 				CE381A032DBFB0710011575C /* MoveBg */,
 				CE3819EB2DBFAB400011575C /* PopManger */,
 				CE3819DA2DBFAA890011575C /* WorkingTimes */,
@@ -283,6 +317,7 @@
 				CE3819D22DBFAA5C0011575C /* Preview Assets.xcassets in Resources */,
 				CE381A012DBFABFF0011575C /* README.md in Resources */,
 				CE381A022DBFABFF0011575C /* README.zh.md in Resources */,
+				CE1B142B2DCF4C7E009A2FF7 /* TODO_README.md in Resources */,
 				CE3819FD2DBFAB760011575C /* Localizable.strings in Resources */,
 				CE3819FE2DBFAB760011575C /* Localizable.strings in Resources */,
 				CE3819D32DBFAA5C0011575C /* Assets.xcassets in Resources */,
@@ -302,11 +337,17 @@
 				CE3819E22DBFAB270011575C /* SettingsView.swift in Sources */,
 				CE3819E32DBFAB270011575C /* MultiDatePickerView.swift in Sources */,
 				CE1B13EB2DCDAB23009A2FF7 /* WorkScheduleSettingsManager.swift in Sources */,
+				CE1B14272DCF4C7E009A2FF7 /* TodoLogView.swift in Sources */,
+				CE1B14282DCF4C7E009A2FF7 /* TodoMainView.swift in Sources */,
+				CE1B14292DCF4C7E009A2FF7 /* TodoModels.swift in Sources */,
+				CE1B142A2DCF4C7E009A2FF7 /* TodoEditorViews.swift in Sources */,
 				CE1B13EC2DCDAB23009A2FF7 /* WorkScheduleStatusManager.swift in Sources */,
 				CE1B13ED2DCDAB23009A2FF7 /* WorkScheduleCustomManager.swift in Sources */,
 				CE3819D12DBFAA5C0011575C /* ContentView.swift in Sources */,
 				CE3819F12DBFAB4D0011575C /* TestFloatingViewController.swift in Sources */,
+				CE0596312DD36E3E00E7E444 /* TodoStatsView.swift in Sources */,
 				CE3819F22DBFAB4D0011575C /* FloatingViewControllerManager.swift in Sources */,
+				CED354EE2DD4C2700075E6F2 /* ReflectionView.swift in Sources */,
 				CE3819F32DBFAB4D0011575C /* PresentationRequest.swift in Sources */,
 				CE3819F42DBFAB4D0011575C /* FloatingViewTestView.swift in Sources */,
 				CE381A062DBFB10D0011575C /* SmartMattingView.swift in Sources */,
@@ -316,6 +357,7 @@
 				CE3819E82DBFAB3B0011575C /* WorkScheduleManager.swift in Sources */,
 				CE381A0B2DC068B30011575C /* ImageCroppingView.swift in Sources */,
 				CE381A092DC05F270011575C /* CheckerboardBackground.swift in Sources */,
+				CED354F02DD4C4FD0075E6F2 /* ReflectionHistoryView.swift in Sources */,
 				CE1B13F42DCDAE17009A2FF7 /* WorkScheduleProtocol.swift in Sources */,
 				CE1B13F52DCDAE17009A2FF7 /* CustomWorkSchedule.swift in Sources */,
 				CE1B13F62DCDAE17009A2FF7 /* AlternatingWorkSchedule.swift in Sources */,
@@ -472,22 +514,25 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = AICode/AICode.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 10000;
 				DEVELOPMENT_ASSET_PATHS = "\"AICode/Preview Content\"";
 				DEVELOPMENT_TEAM = CJP2LU6JZC;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "意识流场MindFlow";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.xyj.ios.AICode;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -501,22 +546,25 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = AICode/AICode.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 10000;
 				DEVELOPMENT_ASSET_PATHS = "\"AICode/Preview Content\"";
 				DEVELOPMENT_TEAM = CJP2LU6JZC;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "意识流场MindFlow";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.xyj.ios.AICode;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
