@@ -5,6 +5,8 @@ struct ReflectionView: View {
     @State private var showingSaveConfirmation = false
     @State private var showingHistory = false
     
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+    
     // 如果当前日志没有复盘数据，创建一个空的
     private var reflection: Binding<Reflection> {
         if dataManager.currentLog.reflection == nil {
@@ -23,16 +25,13 @@ struct ReflectionView: View {
                 // 第一行：标题
                 HStack {
                     Text(dataManager.currentLog.dateString)
-                        .font(.largeTitle)
-                        .fontWeight(.bold)
+                        .font(.system(size: horizontalSizeClass == .regular ? 34 : 28, weight: .bold))
                     
                     Spacer()
                 }
                 
                 // 第二行：按钮
                 HStack {
-                    Spacer()
-                    
                     // 历史记录按钮
                     Button(action: {
                         // 确保加载所有日志
@@ -66,6 +65,8 @@ struct ReflectionView: View {
                         .foregroundColor(.white)
                         .cornerRadius(8)
                     }
+                    
+                    Spacer()
                 }
             }
             .padding()

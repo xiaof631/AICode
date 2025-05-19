@@ -131,6 +131,12 @@ struct TodoLogView: View {
                 
                 Spacer()
                 
+                
+            }
+            
+            // 第二行：按钮
+            HStack(spacing: 12) {
+                
                 // 历史记录按钮
                 Button(action: {
                     showingHistoryView = true
@@ -145,10 +151,7 @@ struct TodoLogView: View {
                     .foregroundColor(.white)
                     .cornerRadius(8)
                 }
-            }
-            
-            // 第二行：按钮
-            HStack(spacing: 12) {
+                
                 Button(action: {
                     dataManager.saveData()
                     showingSaveConfirmation = true
