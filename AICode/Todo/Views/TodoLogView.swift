@@ -9,117 +9,186 @@ struct TodoLogView: View {
     @State private var editingScheduledTask: ScheduledTask?
     @State private var editingCompletedTask: CompletedTask?
     @State private var showingSaveConfirmation = false
-    @State private var showingCopyDatePicker = false // 复制日期选择器状态
-    @State private var showingHistoryView = false // 新增：历史记录视图状态
+    @State private var showingCopyDatePicker = false
+    @State private var showingHistoryView = false
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     
     var body: some View {
-        VStack(spacing: 16) {
-            // 标题部分 - 显示当天日期和保存按钮
-            VStack(spacing: 10) {
-                // 第一行 - 标题
-                Text(dataManager.currentLog.dateString)
-                    .font(.largeTitle)
-                    .fontWeight(.bold)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                
-                // 第二行 - 按钮
-                HStack(spacing: 12) {
-                    Spacer()
-                    
-                    // 新增：历史记录按钮
-                    Button(action: {
-                        // 确保加载所有日志
-                        dataManager.loadAllLogs()
-                        showingHistoryView = true
-                    }) {
-                        HStack {
-                            Image(systemName: "clock.arrow.circlepath")
-                            Text("历史记录")
-                        }
-                        .padding(.horizontal, 12)
-                        .padding(.vertical, 6)
-                        .background(Color.green)
-                        .foregroundColor(.white)
-                        .cornerRadius(8)
-                    }
-                    
-                    // 快速复制按钮
-                    Button(action: {
-                        showingCopyDatePicker = true
-                    }) {
-                        HStack {
-                            Image(systemName: "doc.on.doc")
-                            Text("快速复制")
-                        }
-                        .padding(.horizontal, 12)
-                        .padding(.vertical, 6)
-                        .background(Color.orange)
-                        .foregroundColor(.white)
-                        .cornerRadius(8)
-                    }
-                    
-                    Button(action: {
-                        dataManager.saveData()
-                        showingSaveConfirmation = true
-                    }) {
-                        HStack {
-                            Image(systemName: "square.and.arrow.down")
-                            Text("保存")
-                        }
-                        .padding(.horizontal, 12)
-                        .padding(.vertical, 6)
-                        .background(Color.blue)
-                        .foregroundColor(.white)
-                        .cornerRadius(8)
-                    }
-                }
-            }
-            .padding()
-            
+        GeometryReader { geometry in
             ScrollView {
-                VStack(spacing: 20) {
-                    // 顶部 - 当天所有任务
-                    todoSection
+                VStack(spacing: 16) {
+                    // 标题部分
+                    headerView
+                        .padding(.horizontal)
                     
-                    // 中部 - 计划和完成情况
-                    HStack(alignment: .top, spacing: 10) {
-                        // 左侧 - 当天计划
-                        scheduleSection
-                        
-                        // 右侧 - 实际完成情况
-                        completionSection
+                    // 主要内容区域
+                    if horizontalSizeClass == .regular {
+                        // iPad 布局：左右分栏
+                        HStack(alignment: .top, spacing: 16) {
+                            // 左侧：任务和计划
+                            VStack(spacing: 16) {
+                                todoSection
+                                scheduleSection
+                            }
+                            .frame(maxWidth: geometry.size.width * 0.5)
+                            
+                            // 右侧：完成情况和备注
+                            VStack(spacing: 16) {
+                                completionSection
+                                notesSection
+                            }
+                            .frame(maxWidth: geometry.size.width * 0.5)
+                        }
+                        .padding(.horizontal)
+                    } else {
+                        // iPhone 布局：垂直排列
+                        VStack(spacing: 16) {
+                            todoSection
+                            scheduleSection
+                            completionSection
+                            notesSection
+                        }
+                        .padding(.horizontal)
                     }
-                    .frame(minHeight: 300)
-                    
-                    // 底部 - 备注栏
-                    notesSection
                 }
-                .padding()
+                .padding(.vertical)
             }
         }
-        .alert(isPresented: $showingSaveConfirmation) {
-            Alert(
-                title: Text("保存成功"),
-                message: Text("今日任务数据已成功保存"),
-                dismissButton: .default(Text("确定"))
+        .sheet(isPresented: $showingTaskEditor) {
+            TaskEditorView(
+                task: editingTask,
+                onSave: { newTask in
+                    if let editingTask = editingTask {
+                        var updatedTask = editingTask
+                        updatedTask.title = newTask.title
+                        updatedTask.quadrant = newTask.quadrant
+                        updatedTask.isCompleted = newTask.isCompleted
+                        updatedTask.completionNotes = newTask.completionNotes
+                        updatedTask.incompleteReason = newTask.incompleteReason
+                        dataManager.updateTask(updatedTask)
+                    } else {
+                        dataManager.addTask(newTask)
+                    }
+                    self.editingTask = nil
+                }
             )
         }
-        // 日期选择器弹窗
+        .sheet(isPresented: $showingScheduleEditor) {
+            ScheduleEditorView(
+                task: editingScheduledTask,
+                onSave: { newTask in
+                    if let editingTask = editingScheduledTask {
+                        var updatedTask = editingTask
+                        updatedTask.title = newTask.title
+                        updatedTask.startTime = newTask.startTime
+                        updatedTask.endTime = newTask.endTime
+                        updatedTask.notes = newTask.notes
+                        updatedTask.isParallel = newTask.isParallel
+                        dataManager.updateScheduledTask(updatedTask)
+                    } else {
+                        dataManager.addScheduledTask(newTask)
+                    }
+                    self.editingScheduledTask = nil
+                }
+            )
+        }
+        .sheet(isPresented: $showingCompletionEditor) {
+            CompletionEditorView(
+                task: editingCompletedTask,
+                onSave: { newTask in
+                    if let editingTask = editingCompletedTask {
+                        var updatedTask = editingTask
+                        updatedTask.title = newTask.title
+                        updatedTask.startTime = newTask.startTime
+                        updatedTask.endTime = newTask.endTime
+                        updatedTask.notes = newTask.notes
+                        dataManager.updateCompletedTask(updatedTask)
+                    } else {
+                        dataManager.addCompletedTask(newTask)
+                    }
+                    self.editingCompletedTask = nil
+                }
+            )
+        }
         .sheet(isPresented: $showingCopyDatePicker) {
             copyDatePickerView
         }
-        // 新增：历史记录视图弹窗
         .sheet(isPresented: $showingHistoryView) {
             historyView
         }
+        .alert("保存成功", isPresented: $showingSaveConfirmation) {
+            Button("确定", role: .cancel) { }
+        }
     }
     
-    // 顶部任务区域
+    // 标题视图
+    private var headerView: some View {
+        VStack(spacing: 12) {
+            // 第一行：标题
+            HStack {
+                Text(dataManager.currentLog.dateString)
+                    .font(.system(size: horizontalSizeClass == .regular ? 34 : 28, weight: .bold))
+                
+                Spacer()
+                
+                // 历史记录按钮
+                Button(action: {
+                    showingHistoryView = true
+                }) {
+                    HStack {
+                        Image(systemName: "clock.arrow.circlepath")
+                        Text("历史记录")
+                    }
+                    .padding(.vertical, 6)
+                    .padding(.horizontal, 10)
+                    .background(Color.blue)
+                    .foregroundColor(.white)
+                    .cornerRadius(8)
+                }
+            }
+            
+            // 第二行：按钮
+            HStack(spacing: 12) {
+                Button(action: {
+                    dataManager.saveData()
+                    showingSaveConfirmation = true
+                }) {
+                    HStack {
+                        Image(systemName: "square.and.arrow.down")
+                        Text("保存")
+                    }
+                    .padding(.vertical, 6)
+                    .padding(.horizontal, 10)
+                    .background(Color.green)
+                    .foregroundColor(.white)
+                    .cornerRadius(8)
+                }
+                
+                Button(action: {
+                    showingCopyDatePicker = true
+                }) {
+                    HStack {
+                        Image(systemName: "doc.on.doc")
+                        Text("复制")
+                    }
+                    .padding(.vertical, 6)
+                    .padding(.horizontal, 10)
+                    .background(Color.orange)
+                    .foregroundColor(.white)
+                    .cornerRadius(8)
+                }
+                
+                Spacer()
+            }
+        }
+    }
+    
+    // 任务部分
     private var todoSection: some View {
         VStack(alignment: .leading) {
             HStack {
                 Text("今日任务")
-                    .font(.headline)
+                    .font(.system(size: horizontalSizeClass == .regular ? 20 : 18, weight: .bold))
                 
                 Spacer()
                 
@@ -128,6 +197,7 @@ struct TodoLogView: View {
                     showingTaskEditor = true
                 }) {
                     Image(systemName: "plus.circle.fill")
+                        .font(.system(size: horizontalSizeClass == .regular ? 24 : 20))
                         .foregroundColor(.blue)
                 }
             }
@@ -149,33 +219,14 @@ struct TodoLogView: View {
         .padding()
         .background(Color(.systemGray6))
         .cornerRadius(10)
-        .sheet(isPresented: $showingTaskEditor) {
-            TaskEditorView(
-                task: editingTask,
-                onSave: { newTask in
-                    if let editingTask = editingTask {
-                        var updatedTask = editingTask
-                        updatedTask.title = newTask.title
-                        updatedTask.quadrant = newTask.quadrant
-                        updatedTask.isCompleted = newTask.isCompleted
-                        updatedTask.completionNotes = newTask.completionNotes
-                        updatedTask.incompleteReason = newTask.incompleteReason
-                        dataManager.updateTask(updatedTask)
-                    } else {
-                        dataManager.addTask(newTask)
-                    }
-                    self.editingTask = nil
-                }
-            )
-        }
     }
     
-    // 中部左侧计划区域
+    // 计划部分
     private var scheduleSection: some View {
         VStack(alignment: .leading) {
             HStack {
                 Text("计划安排")
-                    .font(.headline)
+                    .font(.system(size: horizontalSizeClass == .regular ? 20 : 18, weight: .bold))
                 
                 Spacer()
                 
@@ -184,6 +235,7 @@ struct TodoLogView: View {
                     showingScheduleEditor = true
                 }) {
                     Image(systemName: "plus.circle.fill")
+                        .font(.system(size: horizontalSizeClass == .regular ? 24 : 20))
                         .foregroundColor(.blue)
                 }
             }
@@ -203,36 +255,16 @@ struct TodoLogView: View {
             }
         }
         .padding()
-        .frame(maxWidth: .infinity)
         .background(Color(.systemGray6))
         .cornerRadius(10)
-        .sheet(isPresented: $showingScheduleEditor) {
-            ScheduleEditorView(
-                task: editingScheduledTask,
-                onSave: { newTask in
-                    if let editingTask = editingScheduledTask {
-                        var updatedTask = editingTask
-                        updatedTask.title = newTask.title
-                        updatedTask.startTime = newTask.startTime
-                        updatedTask.endTime = newTask.endTime
-                        updatedTask.isParallel = newTask.isParallel
-                        updatedTask.notes = newTask.notes
-                        dataManager.updateScheduledTask(updatedTask)
-                    } else {
-                        dataManager.addScheduledTask(newTask)
-                    }
-                    self.editingScheduledTask = nil
-                }
-            )
-        }
     }
     
-    // 中部右侧完成情况区域
+    // 完成情况部分
     private var completionSection: some View {
         VStack(alignment: .leading) {
             HStack {
                 Text("实际完成")
-                    .font(.headline)
+                    .font(.system(size: horizontalSizeClass == .regular ? 20 : 18, weight: .bold))
                 
                 Spacer()
                 
@@ -241,6 +273,7 @@ struct TodoLogView: View {
                     showingCompletionEditor = true
                 }) {
                     Image(systemName: "plus.circle.fill")
+                        .font(.system(size: horizontalSizeClass == .regular ? 24 : 20))
                         .foregroundColor(.blue)
                 }
             }
@@ -258,44 +291,23 @@ struct TodoLogView: View {
                         }
                 }
             }
-            
-            // 移除了"从计划导入"部分
         }
         .padding()
-        .frame(maxWidth: .infinity)
         .background(Color(.systemGray6))
         .cornerRadius(10)
-        .sheet(isPresented: $showingCompletionEditor) {
-            CompletionEditorView(
-                task: editingCompletedTask,
-                onSave: { newTask in
-                    if let editingTask = editingCompletedTask {
-                        var updatedTask = editingTask
-                        updatedTask.title = newTask.title
-                        updatedTask.startTime = newTask.startTime
-                        updatedTask.endTime = newTask.endTime
-                        updatedTask.notes = newTask.notes
-                        dataManager.updateCompletedTask(updatedTask)
-                    } else {
-                        dataManager.addCompletedTask(newTask)
-                    }
-                    self.editingCompletedTask = nil
-                }
-            )
-        }
     }
     
-    // 底部备注区域
+    // 备注部分
     private var notesSection: some View {
         VStack(alignment: .leading) {
             Text("备注")
-                .font(.headline)
+                .font(.system(size: horizontalSizeClass == .regular ? 20 : 18, weight: .bold))
             
             TextEditor(text: Binding(
                 get: { dataManager.currentLog.notes },
                 set: { dataManager.updateNotes($0) }
             ))
-            .frame(minHeight: 100)
+            .frame(minHeight: horizontalSizeClass == .regular ? 150 : 100)
             .padding(4)
             .background(Color(.systemGray5))
             .cornerRadius(8)
@@ -304,7 +316,6 @@ struct TodoLogView: View {
         .background(Color(.systemGray6))
         .cornerRadius(10)
     }
-    
     
     // 新增：历史记录视图
     private var historyView: some View {
