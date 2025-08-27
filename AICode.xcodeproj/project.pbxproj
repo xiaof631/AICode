@@ -54,6 +54,9 @@
 		CE381A072DBFB10D0011575C /* MaskEditingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE381A042DBFB10D0011575C /* MaskEditingView.swift */; };
 		CE381A092DC05F270011575C /* CheckerboardBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE381A082DC05F270011575C /* CheckerboardBackground.swift */; };
 		CE381A0B2DC068B30011575C /* ImageCroppingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE381A0A2DC068B30011575C /* ImageCroppingView.swift */; };
+		CE49E0EC2DF1CC2300D5AF35 /* TimeMasterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE49E0EA2DF1CC2300D5AF35 /* TimeMasterView.swift */; };
+		CE49E0EE2DF1CC2300D5AF35 /* 功能开发任务清单.md in Resources */ = {isa = PBXBuildFile; fileRef = CE49E0E82DF1CC2300D5AF35 /* 功能开发任务清单.md */; };
+		CE49E0EF2DF1CC2300D5AF35 /* iOS产品开发文档：全能时间管家（TimeMaster）.md in Resources */ = {isa = PBXBuildFile; fileRef = CE49E0E92DF1CC2300D5AF35 /* iOS产品开发文档：全能时间管家（TimeMaster）.md */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -106,6 +109,9 @@
 		CE381A052DBFB10D0011575C /* SmartMattingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmartMattingView.swift; sourceTree = "<group>"; };
 		CE381A082DC05F270011575C /* CheckerboardBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckerboardBackground.swift; sourceTree = "<group>"; };
 		CE381A0A2DC068B30011575C /* ImageCroppingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCroppingView.swift; sourceTree = "<group>"; };
+		CE49E0E82DF1CC2300D5AF35 /* 功能开发任务清单.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = "功能开发任务清单.md"; sourceTree = "<group>"; };
+		CE49E0E92DF1CC2300D5AF35 /* iOS产品开发文档：全能时间管家（TimeMaster）.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = "iOS产品开发文档：全能时间管家（TimeMaster）.md"; sourceTree = "<group>"; };
+		CE49E0EA2DF1CC2300D5AF35 /* TimeMasterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeMasterView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -184,6 +190,7 @@
 			isa = PBXGroup;
 			children = (
 				CE0596322DD36FF000E7E444 /* AICode.entitlements */,
+				CE49E0EB2DF1CC2300D5AF35 /* TimeMaster */,
 				CE1B14262DCF4C7E009A2FF7 /* Todo */,
 				CE381A032DBFB0710011575C /* MoveBg */,
 				CE3819EB2DBFAB400011575C /* PopManger */,
@@ -286,6 +293,24 @@
 			path = MoveBg;
 			sourceTree = "<group>";
 		};
+		CE49E0E72DF1CC2300D5AF35 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				CE49E0EA2DF1CC2300D5AF35 /* TimeMasterView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		CE49E0EB2DF1CC2300D5AF35 /* TimeMaster */ = {
+			isa = PBXGroup;
+			children = (
+				CE49E0E72DF1CC2300D5AF35 /* Views */,
+				CE49E0E82DF1CC2300D5AF35 /* 功能开发任务清单.md */,
+				CE49E0E92DF1CC2300D5AF35 /* iOS产品开发文档：全能时间管家（TimeMaster）.md */,
+			);
+			path = TimeMaster;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -350,6 +375,8 @@
 			files = (
 				CE35A6522DDB5A680075CDFC /* TODO_README.md in Resources */,
 				CE3819D22DBFAA5C0011575C /* Preview Assets.xcassets in Resources */,
+				CE49E0EE2DF1CC2300D5AF35 /* 功能开发任务清单.md in Resources */,
+				CE49E0EF2DF1CC2300D5AF35 /* iOS产品开发文档：全能时间管家（TimeMaster）.md in Resources */,
 				CE381A012DBFABFF0011575C /* README.md in Resources */,
 				CE381A022DBFABFF0011575C /* README.zh.md in Resources */,
 				CE1B142B2DCF4C7E009A2FF7 /* TODO_README.md in Resources */,
@@ -384,6 +411,7 @@
 				CE35A6472DDB5A680075CDFC /* ICloudSyncManager.swift in Sources */,
 				CE35A6482DDB5A680075CDFC /* ReflectionView.swift in Sources */,
 				CE35A64A2DDB5A680075CDFC /* ScheduleEditorView.swift in Sources */,
+				CE49E0EC2DF1CC2300D5AF35 /* TimeMasterView.swift in Sources */,
 				CE35A64C2DDB5A680075CDFC /* TodoMainView.swift in Sources */,
 				CE35A64D2DDB5A680075CDFC /* CompletionEditorView.swift in Sources */,
 				CE35A64E2DDB5A680075CDFC /* ReflectionHistoryView.swift in Sources */,

@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+
 struct ContentView: View {
     var body: some View {
         NavigationView {
@@ -44,6 +45,14 @@ struct ContentView: View {
                         Text("认知觉醒")
                     }
 
+                }
+                
+                Section{
+                    NavigationLink {
+                        TimeMasterView()
+                    } label: {
+                        Text("全能时间管家")
+                    }
                 }
             }
         }
